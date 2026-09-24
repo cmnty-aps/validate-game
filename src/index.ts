@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import checkCache from './handler'
+import { docsPage } from './docs'
 
 // Mock Cloudflare global caches
 if (typeof globalThis.caches === 'undefined') {
@@ -14,6 +15,9 @@ if (typeof globalThis.caches === 'undefined') {
 }
 
 const app = new Hono()
+
+app.get('/', (c) => docsPage())
+app.get('/docs', (c) => docsPage())
 
 app.all('*', async (c) => {
   return await checkCache(c.req.raw)
