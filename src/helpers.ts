@@ -5,7 +5,7 @@ export default async function serveResult(url: string): Promise<Response> {
   const { decode } = getParams(url)
   let status = 200
   const result: Result = await callAPI(url)
-  if (result.game === 'Mobile Legends: Bang Bang') result.name.replace(/\u002B/g, '%20')
+  if (result.game === 'Mobile Legends: Bang Bang' && result.name) result.name = result.name.replace(/\u002B/g, '%20')
   if (result.name) {
     if (decode === null || decode === 'true' || decode !== 'false') {
       result.name = decodeURIComponent(result.name)

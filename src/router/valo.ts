@@ -16,7 +16,7 @@ export default async function valo(id: number): Promise<Result> {
       success: true,
       game: 'VALORANT',
       id,
-      name: id
+      name: String(id)
     }
   } else {
     return {

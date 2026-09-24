@@ -25,7 +25,7 @@ export default async function callAPI(url: string): Promise<Result> {
       case path.includes('/hsr'):
         return await router.hsr(Number(id))
       case path.includes('/la'):
-        return await router.la(Number(id), server)
+        return await router.la(Number(id), server as string)
       case path.includes('/ld'):
         return await router.lad(Number(id))
       case path.includes('/mcgg'):
@@ -35,13 +35,13 @@ export default async function callAPI(url: string): Promise<Result> {
       case path.includes('/pb'):
         return await router.pb(id)
       case path.includes('/pgr'):
-        return await router.pgr(Number(id), server)
+        return await router.pgr(Number(id), server as string)
       case path.includes('/sm'):
         return await router.sm(id)
       case path.includes('/sus'):
         return await router.sus(Number(id))
       case path.includes('/valo'):
-        return await router.valo(id)
+        return await router.valo(id as any)
       case path.includes('/zzz'):
         return await router.zzz(Number(id))
       default:

@@ -14,8 +14,8 @@ export async function parseRequest(request: Request): Promise<string> {
         data = await request.json()
       } else if (contentType.includes('application/x-www-form-urlencoded')) {
         const formData = await request.formData()
-        for (const [key, value] of formData.entries()) {
-          data[key] = value
+        for (const [key, value] of (formData as any).entries()) {
+          data[key] = value as string
         }
       } else {
         return url.href
@@ -37,13 +37,13 @@ export function getParams(inputUrl: string): Params {
   const params: Params = {
     path: url.pathname
   }
-  for (const [key, value] of urlParams.entries()) {
+  for (const [key, value] of (urlParams as any).entries()) {
     params[key] = value
   }
   return params
 }
 
-export async function hitCoda(body: string): Promise<unknown> {
+export async function hitCoda(body: string): Promise<any> {
   const response = await fetch('https://order-sg.codashop.com/initPayment.action', {
     method: 'POST',
     headers: {
@@ -60,6 +60,7 @@ interface Params{
   server?: string
   zone?: string
   decode?: string
+  [key: string]: any
 }
 
 export interface Result {
@@ -67,6 +68,7 @@ export interface Result {
   game?: string
   id?: number | string
   server?: string | number
+  zone?: string | number
   name?: string
   country?: string
   message?: string
